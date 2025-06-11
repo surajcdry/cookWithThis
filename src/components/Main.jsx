@@ -1,14 +1,20 @@
 import { useState } from "react"
 import IngredientsList from "./IngredientsList"
 import Recipe from "./Recipe"
+import { getRecipeFromGroq } from "../ai"
 
 export default function Main() {
 
-    const [ingredients, setIngredients] = useState(["all the main spices", "pasta", "ground beef", "tomato paste"])
-    const [recipeShown, setRecipeShown] = useState(false)
+    const [ingredients, setIngredients] = useState([])
+    const [recipe, setRecipe] = useState("")
 
-    function toggleRecipeShown() {
-        setRecipeShown(recipeShown => !recipeShown)
+    async function getRecipe() {
+        try {
+            const recipeMarkdown = await getRecipeFromGroq(ingredients)
+            setRecipe(recipeMarkdown)
+        } catch (err) {
+            console.error("Error: " + err.message)
+        }
     }
 
     function addIngredient(formData) {
@@ -27,8 +33,8 @@ export default function Main() {
                 />
                 <button>Add ingredient</button>
             </form>
-            {ingredients.length > 0 && <IngredientsList ingredients={ingredients} toggleRecipeShown={toggleRecipeShown} />}
-            {recipeShown && < Recipe />}
+            {ingredients.length > 0 && <IngredientsList ingredients={ingredients} getRecipe={getRecipe} />}
+            {recipe && < Recipe recipe={recipe} />}
         </main>
     )
 }
