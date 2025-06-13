@@ -30,7 +30,7 @@ export default function IngredientsList(props) {
                 <input type="text" id="groq-api" name="groq-api" placeholder="gsk_*****" required />
                 <br />
                 <br />
-                <a href="https://console.groq.com/keys" className="groq-tutorial">Click here to get a Groq API key</a>
+                <a href="https://console.groq.com/keys" className="groq-tutorial" target="_blank">Click here to get a Groq API key</a>
                 <br />
                 <br />
                 <button type="submit">Get a recipe</button>
