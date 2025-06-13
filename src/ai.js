@@ -1,12 +1,10 @@
-const GROQ_API_KEY = import.meta.env.VITE_RECIPE_API_KEY
-
-export async function getRecipeFromGroq(ingredientsArr) {
+export async function getRecipeFromGroq(ingredientsArr, groq_api_key) {
     const ingredientsString = ingredientsArr.join(", ")
 
     const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
         method: "POST",
         headers: {
-            "Authorization": `Bearer ${GROQ_API_KEY}`,
+            "Authorization": `Bearer ${groq_api_key}`,
             "Content-Type": "application/json"
         },
         body: JSON.stringify({

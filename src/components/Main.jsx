@@ -8,9 +8,9 @@ export default function Main() {
     const [ingredients, setIngredients] = useState([])
     const [recipe, setRecipe] = useState("")
 
-    async function getRecipe() {
+    async function getRecipe(userAPI) {
         try {
-            const recipeMarkdown = await getRecipeFromGroq(ingredients)
+            const recipeMarkdown = await getRecipeFromGroq(ingredients, userAPI)
             setRecipe(recipeMarkdown)
         } catch (err) {
             console.error("Error: " + err.message)
@@ -30,6 +30,7 @@ export default function Main() {
                     placeholder="e.g. oregano"
                     aria-label="Add ingredient"
                     name="ingredient"
+                    required
                 />
                 <button>Add ingredient</button>
             </form>
